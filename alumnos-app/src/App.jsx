@@ -1,15 +1,69 @@
+import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const alumnos = [
-    { id: 1, nombre: 'Alison Saban', edad: 20, carrera: 'Desarrollo de Software' },
-    { id: 2, nombre: 'Jimy Crisostomo', edad: 24, carrera: 'Diseño Grafico' },
-    { id: 3, nombre: 'luis pedro', edad: 19, carrera: 'teologia' }
-  ]
+  const [alumnos, setAlumnos] = useState([])
+
+  const [nombre, setNombre] = useState('')
+  const [edad, setEdad] = useState('')
+  const [carrera, setCarrera] = useState('')
+
+  const agregarAlumno = (e) => {
+    e.preventDefault()
+
+    const nuevoAlumno = {
+      id: alumnos.length + 1,
+      nombre: nombre,
+      edad: edad,
+      carrera: carrera
+    }
+
+    setAlumnos([...alumnos, nuevoAlumno])
+
+    setNombre('')
+    setEdad('')
+    setCarrera('')
+  }
 
   return (
     <div className="app">
       <h1>Listado de Alumnos</h1>
+
+      <form onSubmit={agregarAlumno}>
+        <h2>Agregar alumno</h2>
+
+        <div>
+          <label>Nombre:</label>
+          <input
+            type="text"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            required
+          />
+        </div>
+
+        <div>
+          <label>Edad:</label>
+          <input
+            type="number"
+            value={edad}
+            onChange={(e) => setEdad(e.target.value)}
+            required
+          />
+        </div>
+
+        <div>
+          <label>Carrera:</label>
+          <input
+            type="text"
+            value={carrera}
+            onChange={(e) => setCarrera(e.target.value)}
+            required
+          />
+        </div>
+
+        <button type="submit">Agregar alumno</button>
+      </form>
 
       <table>
         <thead>
